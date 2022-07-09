@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block title %} Home {% endblock title %}
+
+{% block body %}
+<header class="py-5">
+    <div class="container px-lg-5">
+        <div class="p-4 p-lg-5 bg-warning rounded-3 text-center">
+            <div class="m-4 m-lg-5">
+                <h1 class="display-5 fw-bold">Welcome to Linker!</h1>
+                <p class="fs-4"><b>A Linker of all links</b>
+                    <br>This web application helps you to keep all your important links in one place🤩.<br>So, you
+                    don't have to search again and again😫.
+                </p>
+                <div class="container">
+                    <div class="mt-2 d-grid gap-2">
+                        <a type="button" class="btn btn-outline-dark fw-bold"
+                            href="https://password-selector.herokuapp.com/" target="_blank">Go to Password Generator</a>
+                        <a type="button" class="btn btn-outline-dark fw-bold" href="https://the-minimess.herokuapp.com/"
+                            target="_blank">Go to The MiniMess</a>
+                        <a type="button" class="btn btn-outline-dark fw-bold" href="https://rajtech99.blogspot.com/"
+                            target="_blank">RajTech99 only Technology</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<section class="pt-4">
+    <div class="container px-lg-5">
+        <div class="flex flex-col">
+            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                        {% if allmsg|length==0 %}
+                        <div class="alert alert-dark m-auto" role="alert">
+                            No urls found, Add urls now.
+                        </div>
+                        {% else %}
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Name</th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        URL</th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        description</th>
+                                </tr>
+                            </thead>
+                            {% for fav_app in allmsg %}
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full"
+                                                    src="{{ url_for('static', filename='assets/earth.ico')}}" alt="">
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900">{{fav_app.name}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">{{fav_app.url}}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span
+                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                            {{fav_app.msg}} </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <a class="btn btn-primary" href="{{fav_app.url}}" target="_blank"
+                                            role="button">Visit</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<div class="container my-3">
+    <form action="/" method='POST'>
+        <div class="mb-3">
+            <label for="name" class="form-label" id="down">Website Name</label>
+            <input type="text" class="form-control" name="name" id="name">
+
+        </div>
+        <div class="mb-3">
+            <label for="msg" class="form-label">Website URL</label>
+            <input type="url" class="form-control" name="url" id="message">
+        </div>
+        <div class="mb-3">
+            <label for="msg" class="form-label">Description</label>
+            <input type="text" class="form-control" name="msg" id="message">
+        </div>
+        <button type="submit" class="btn btn-primary bg-primary">Add URL</button>
+    </form>
+</div>
+{% endblock body %}
